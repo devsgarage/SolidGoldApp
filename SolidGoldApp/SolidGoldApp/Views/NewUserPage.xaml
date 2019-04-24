@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SolidGoldApp.Views.NewUserPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Username"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Entry 
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Fill" Text="{Binding Username, Mode=TwoWay}" Margin="20,0"/>
+            <Label Text="Password"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Entry 
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Fill" Text="{Binding Password, Mode=TwoWay}" IsPassword="True" Margin="20,0"/>
+            <Label Text="Reenter Password"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Entry 
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Fill" Text="{Binding ReenteredPassword, Mode=TwoWay}" IsPassword="True" Margin="20,0"/>
+            <Button Text="Submit" Command="{Binding ExecuteSubmitNewUser}" 
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

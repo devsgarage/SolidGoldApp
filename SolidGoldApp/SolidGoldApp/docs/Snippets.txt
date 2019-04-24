@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SolidGoldApp.Interfaces
+{
+    public interface IPasswordRule
+    {
+        bool IsValid(string password, string reentered);
+    }
+}
+
+
+
+PasswordValidation.cs
+
+private List<IPasswordRule> rules;
+
+rules = PasswordRuleFactory.Instance.GetRules();
+
+foreach(var rule in rules)
+{
+    if (!rule.IsValid(password, secondPassword))
+        return false;
+}
+
+private void LoadRules()
+{
+    rules = new List<IPasswordRule>();
+    var assemblies = AppDomain.CurrentDomain.GetAssemblies();    
+    var it = typeof(IPasswordRule);
+    foreach (var asm in assemblies)
+    {
+        var types = asm.GetLoadableTypes().Where(x => it.IsAssignableFrom(x) 
+        && !x.IsInterface
+        && !x.IsAbstract
+        ).ToList();
+        foreach (var t in types)
+        {
+            rules.Add((IPasswordRule)Activator.CreateInstance(t));
+        }
+    }
+}
+
+
+public static class TypeLoaderExtensions
+{
+    public static IEnumerable<Type> GetLoadableTypes(this Assembly assembly)
+    {
+        if (assembly == null) throw new ArgumentNullException("assembly");
+        try
+        {
+            return assembly.GetTypes();
+        }
+        catch (ReflectionTypeLoadException e)
+        {
+            return e.Types.Where(t => t != null);
+        }
+    }
+}

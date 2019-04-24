@@ -1,0 +1,7 @@
+﻿1. Single responsibility
+
+2. Interface Segregation
+
+3. Open/Closed
+
+4. Dependency Inversion
